@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}
+    Deletando Tarefa
+{% endblock page_title %}
+{% block body %}
+    <h2>Tem certeza que deseja excluir a tarefa {{ programation.nome }}?</h2>
+    <br>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Excluir Tarefa</button>
+        <a href="{% url 'programation_view' %}" class="btn btn-primary">Cancelar</a>
+    </form>
+{% endblock body %}

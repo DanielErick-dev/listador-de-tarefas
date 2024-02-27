@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block link %}
+    <link rel="stylesheet"type='text/css' href='{% static "css/criando_tarefa.css" %}'>
+{% endblock link %}
+{% block page_title %}
+    {% if academy.pk %}
+        Editando Tarefa
+    {% else %}
+        Criando Tarefa
+    {% endif %}
+    
+{% endblock page_title %}
+{% block body %}
+    <div class="welcome">
+        <h1>welcome back</h1>
+    </div>
+    <div class='container'>
+        <form method="post" class='form'>
+            {% csrf_token %}
+            {% if academy.pk %}
+                <h1>edite sua tarefa</h1>
+            {% else %}
+                <h1>crie sua tarefa</h1>
+            {% endif %}
+            
+            {{ form.as_p }}
+            <div class="btns">
+                <button type="submit" class='btn-submit'>Cadastrar</button>
+                <a href="{% url 'academy_view' %}" class='btn-cancel'>cancelar</a>
+            </div>
+            
+        </form>
+    </div>
+{% endblock body %}

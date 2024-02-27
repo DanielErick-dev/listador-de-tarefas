@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}
+    Missões Projeto Academia
+{% endblock page_title %}
+{% block body %}
+    {% if sem_tarefas %}
+        <a href="{% url 'project_academy_create_view' %}" class="btn btn-primary">Criar Primeira Tarefa</a>
+    {% else %}
+    <h1>próximas etapas do desenvolvimento do sistema Academia</h1>
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">titulo</th>
+            <th scope="col">ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for objeto in academy %}
+                <tr>
+                    <th scope="row">{{ objeto.pk }}</th>
+                    <td>{{ objeto.nome }}</td>
+                    <td>
+                        <a href="{% url 'project_academy_delete_view' pk=objeto.pk%}" class="btn btn-outline-danger btn-sm">Excluir</a>
+                        <a href="{% url 'project_academy_create_view' %}" type="button" class="btn btn-outline-success">Nova Tarefa</a>
+                        <a href="{% url 'project_academy_update_view' pk=objeto.pk %}" type="button" class="btn btn-outline-primary btn-sm">Editar</a>
+                        <a href="{% url 'project_academy_conclusion_view' pk=objeto.pk %}" type="button" class="btn btn-outline-primary btn-sm">concluir</a>
+                    </td>
+                </tr>
+            {% endfor %}   
+        </tbody>
+        </table>
+    {% endif %}
+    
+    <script src="{% static 'js/script.js' %}"></script>
+{% endblock body %}

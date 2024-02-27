@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}
+    pagina inicial
+{% endblock page_title %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+{% endblock link %}
+{% block body %}
+    <div class="links-botoes">
+      <a onclick="vizualizar_missoes_gerais();">missões gerais</a>
+      <a href="{% url 'project_academy_view' %}">Academy Project</a>
+      <a href="{% url 'programation_view' %}">Programação</a>
+      <a href="{% url 'faxina_view' %}">Faxinas</a>
+      <a href="#">Anotações</a>
+      <a href="{% url 'relatorio_view' %}">Enviar Relatório</a>
+    </div>
+
+    
+    
+    {% if sem_tarefas %}
+      <a href="{% url 'create_view' %}" class="btn btn-primary">Criar Primeira Tarefa</a>
+    {% endif %}
+    <table class="table" style="visibility: hidden;" id="tabela_id">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">titulo</th>
+          <th scope="col">ações</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for objeto in object_list %}
+              <tr>
+                  <th scope="row">{{ objeto.pk }}</th>
+                  <td>{{ objeto.nome }}</td>
+                  <td>
+                    <a href="{% url 'delete_view' pk=objeto.pk %}" class="btn btn-outline-danger btn-sm" id="btn">Excluir</a>
+                    <a href="{% url 'update_view' pk=objeto.pk %}" class="btn btn-outline-success btn-sm" id="btn">Editar</a>
+                    <a href="{% url 'create_view' %}" type="button" class="btn btn-outline-success" id="btn">Nova Tarefa</a>
+                    <a href="{% url 'conclusion_view' pk=objeto.pk %}" type="button" class="btn btn-outline-success" id="btn">concluir Tarefa</a>
+                  </td>
+              </tr>
+          {% endfor %}   
+      </tbody>
+    </table>
+    <script src="{% static 'js/script.js' %}"></script>
+{% endblock body %}
